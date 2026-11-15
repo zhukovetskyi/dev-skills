@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Git guardrails: pushes to main/master are hard-denied (deny cannot be
+  // overridden by saved "Allow always" approvals); any other push asks first.
+  // Last matching rule wins. Patterns are matched against the full scanned
+  // command, so compound commands like `cd x && git push origin main` are
+  // also caught.
+  "permissions": [
+    { "action": "shell", "resource": "git push *", "effect": "ask" },
+    { "action": "shell", "resource": "git push *main*", "effect": "deny" },
+    { "action": "shell", "resource": "git push *master*", "effect": "deny" }
+  ]
+}
